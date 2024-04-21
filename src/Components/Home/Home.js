@@ -66,7 +66,7 @@ const Home = () => {
       {/* GSAP corousel  */}
       <div
         ref={carouselRef}
-        className=" h-52 sm:h-96  md:h-[55rem] sm:w-11/12 m-auto relative rounded-sm"
+        className=" h-52 sm:h-96  md:h-[40rem] sm:w-11/12 m-auto relative rounded-sm"
       >
         <img
           src="./HomepageImages/Corousel/Home8.jpg"
@@ -111,7 +111,7 @@ const Home = () => {
       </div>
 
       {/* donation,volunteer,sponsor portion */}
-      <div className=" mt-5  h-50 md:flex w-11/12 m-auto gap-5 space-y-10 md:space-y-0">
+      <div className=" mt-5 border  h-50 md:flex w-11/12 m-auto gap-5 space-y-10 md:space-y-0">
         {/* donation */}
         <div className=" h-full w-full flex border-blue-300 ">
           <img
@@ -174,8 +174,8 @@ const Home = () => {
       </div>
 
       {/* vounteer form section*/}
-      <div className="h-96 w-11/12 mt-1 border border-3 m-auto md:flex md:h-96">
-        <div className="w-full h-1/2 md:h-full  text-center space-y-4 md:mt-10">
+      <div className="h-[30rem] border border-5 w-full sm:w-11/12 mt-5 mx-auto  md:flex md:h-96">
+        <div className="w-full  md:h-full  text-center space-y-4 md:mt-10">
           <h1 className="capitalize font-semibold font-sans text-2xl">Share your Volunteering Ideas</h1>
           <form
             className="flex flex-col"
@@ -219,7 +219,7 @@ const Home = () => {
           </form>
         </div>
 
-        <div className="md:h-full h-1/2 md:w-full w-full m-auto relative object-cover" ref={vounteer_corousel_ref}>
+        <div className="md:h-full  md:w-full h-1/2 w-full m-auto relative object-cover" ref={vounteer_corousel_ref}>
           <img
             className=" absolute p-1 h-full w-full"
             src="./HomepageImages/volunteerform/volunteer1.jpg"

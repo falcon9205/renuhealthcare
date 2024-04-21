@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       {/* footer main div */}
-      <div className="footer mt-1 mb-1 md:flex h-full md:h-72 w-full sm:w-11/12 m-auto border boder-4 space-y-5 md:space-y-0">
+      <div className="footer mt-1 mb-1 md:flex h-full md:h-72 w-full sm:w-11/12 m-auto border boder-4 space-y-10 md:space-y-0">
         {/* ourvision Box */}
         <div className="ourvision  text-center capitalize  w-full">
           <h1 className="text-2xl ">Our Vision</h1>
@@ -95,23 +95,25 @@ const Footer = () => {
                 placeholder="Feedback/Suggestions"
                 required
               ></input>
+               <div className="m-auto mt-2 space-x-2">
               <input
-                className="bg-black text-white w-16 m-auto mt-1 px-2 py-1 rounded-lg hover:bg-cyan-700 "
+                className="bg-black text-white w-16 px-2 py-1 rounded-lg hover:bg-cyan-700"
                 type="Submit"
                 value="Send"
               ></input>
               <input
-                className="bg-black text-white hover:bg-cyan-700 w-16 m-auto mt-1 px-2 py-1 rounded-lg"
+                className="bg-black text-white hover:bg-cyan-700 w-16 px-2 py-1 rounded-lg"
                 type="reset"
                 value="Reset"
               ></input>
+            </div>
             </form>
           </div>
         </div>
 
         {/* Contact us Box */}
-        <div className="connectwithus items-center flex flex-col   h-96  w-full uppercase space-y-4">
-          <h1 className="text-2xl text-center">Connect with us</h1>
+        <div className="connectwithus items-center flex flex-col w-full uppercase space-y-4">
+          <h1 className="text-2xl text-center">Contact us</h1>
 
           {/* particular div for flex logo with h1-tag */}
           <div className="flex md:justify-start  ">
@@ -169,6 +171,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <h1 className="m-auto text-center font text-gray-400 text-sm sm:text-lg border w-11/12">© 2024 Copyright : All Rights Reserved : Renu Sharma Healthcare & Education Foundation</h1>
     </>
     
   );
