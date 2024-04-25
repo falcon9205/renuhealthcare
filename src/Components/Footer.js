@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <>
       {/* footer main div */}
-      <div className="footer mt-1 mb-1 md:flex h-full md:h-72 w-full sm:w-11/12 m-auto border boder-4 space-y-10 md:space-y-0">
+      <div className="footer   md:flex h-full md:h-72 w-full sm:w-11/12 m-auto  space-y-10 md:space-y-0">
         {/* ourvision Box */}
         <div className="ourvision  text-center capitalize  w-full">
           <h1 className="text-2xl ">Our Vision</h1>
@@ -171,7 +171,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <h1 className="m-auto text-center font text-gray-400 text-sm sm:text-lg border w-11/12">© 2024 Copyright : All Rights Reserved : Renu Sharma Healthcare & Education Foundation</h1>
+      <h1 className="m-auto rounded-b-lg  text-center font text-black text-sm sm:text-lg  w-full">© 2024 Copyright : All Rights Reserved : Renu Sharma Healthcare & Education Foundation</h1>
     </>
     
   );

@@ -6,7 +6,7 @@ const Loading = () => {
     <div className='text-center mx-auto mt-40'>
       <img src='./logo.png' className='h-52 w-52 m-auto' alt='logo'/>
       <h1 className='text-4xl '>Renu Sharma Healthcare & Education Foundation </h1>
-      <p>We help you grow</p>
+      <p className='capitalize'>A new Vision of Nation</p>
       <BarLoader
       color="black"
       className='mx-auto'
