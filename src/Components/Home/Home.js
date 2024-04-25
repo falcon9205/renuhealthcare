@@ -174,7 +174,7 @@ const Home = () => {
       </div>
 
       {/* vounteer form section*/}
-      <div className="h-[30rem] border border-5 w-full sm:w-11/12 mt-5 mx-auto  md:flex md:h-96">
+      <div className="h-[30rem] w-full sm:w-11/12 mt-5 mx-auto  md:flex md:h-96 mb-5">
         <div className="w-full  md:h-full  text-center space-y-4 md:mt-10">
           <h1 className="capitalize font-semibold font-sans text-2xl">Share your Volunteering Ideas</h1>
           <form

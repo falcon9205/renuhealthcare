@@ -5,9 +5,10 @@ import { FaRegClock } from "react-icons/fa";
 const Event = () => {
   return (
     <>
+    <div className="w-11/12 h-full m-auto">
       {/* hero section */}
       <div
-        className="mb-4 contact-hero flex items-center justify-center w-full min-h-screen bg-cover bg-center bg-no-repeat"
+        className="mb-4 rounded-sm contact-hero flex items-center justify-center w-full min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("/Events/event-hero-modified.jpg")`,
         }}
@@ -15,13 +16,14 @@ const Event = () => {
         <h1 className="text-6xl font-semibold text-white ">Events</h1>
       </div>
       {/* Events */}
-      <div className="flex flex-wrap mx-10 mt-20">
+      <div className="flex flex-wrap mx-10 mt-20 space-y-4 mb-5">
         <Card />
         <Card />
         <Card />
         <Card />
         <Card />
         <Card />
+      </div>
       </div>
     </>
   );
