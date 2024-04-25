@@ -16,34 +16,34 @@ const Signup = () => {
             <div className='bg-zinc-50 px-3 pt-4 pb-20'>
                 <form className='flex flex-col bg-white justify-between items-center py-10 px-3 sm:px-6 gap-y-6 w-full sm:w-3/5 mx-auto shadow-xl rounded-lg border-2 border-zinc-300'
                     onSubmit={handleFormSubmit}>
-                    <h3 className='text-3xl font-bold text-zinc-600 '>
+                    <h3 className='text-3xl font-bold text-emerald-600 '>
                         SIGNUP
                     </h3>
                     <label htmlFor='name' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Full Name : </span>
                         <input type='text' placeholder='John Doe' id='name' name='name'
-                            className='px-3 py-3 bg-zinc-100 rounded-xl outline-none placeholder:text-zinc-500'
+                            className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='email' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Email : </span>
                         <input type='email' placeholder='abc@example.com' id='email' name='email'
-                            className='px-3 py-3 bg-zinc-100 rounded-xl outline-none placeholder:text-zinc-500'
+                            className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='phone' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Contact No. : </span>
                         <input type='tel' placeholder='9876543210' id='phone' name='phone'
-                            className='px-3 py-3 bg-zinc-100 rounded-xl outline-none placeholder:text-zinc-500'
+                            className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='post' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Designation : </span>
                         <select name='post' id='post'
-                            className='px-3 py-3 bg-zinc-100 rounded-xl outline-none placeholder:text-zinc-500'
+                            className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         >
                             <option value='srhod'>Sr HOD</option>
                             <option value='hod'>HOD</option>
@@ -55,7 +55,7 @@ const Signup = () => {
                     <label htmlFor='password' className='flex flex-col w-full gap-y-2 cursor-pointer relative' >
                         <span className='text-zinc-600 font-semibold'>Password : </span>
                         <input type={showPassword ? 'text' : 'password'} placeholder='********' id='password' name='password'
-                            className='px-3 py-3 bg-zinc-100 rounded-xl outline-none placeholder:text-zinc-500'
+                            className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                         <span className='absolute grid place-items-center top-12 right-6 text-2xl text-zinc-500 cursor-pointer' onClick={()=>setShowPassword(!showPassword)}>
                             {
@@ -65,7 +65,7 @@ const Signup = () => {
                     </label>
 
                     <button type='submit'
-                        className='mx-auto font-semibold text-2xl bg-zinc-500 hover:bg-zinc-700 text-white py-2 text-center px-8 rounded-md'
+                        className='mx-auto font-semibold text-2xl bg-emerald-500 hover:bg-emerald-700 text-white py-2 text-center px-20 rounded-md'
                     >
                         Signup
                     </button>
