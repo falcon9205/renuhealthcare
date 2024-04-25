@@ -10,6 +10,7 @@ import Events from "./Components/Events/Events";
 import Contact from "./Components/Contact/Contact";
 import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
+import Signup from "./Components/Login/Signup";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -41,7 +42,11 @@ const router = createBrowserRouter([
       },{
         path:"Login",
         element:<Login/>
-      }
+      },
+      {
+        path:"Signup",
+        element:<Signup/>
+      },
     ]
   }
 ])
