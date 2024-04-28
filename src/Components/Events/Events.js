@@ -1,29 +1,34 @@
 import React from "react";
+
 import { TbMapShare } from "react-icons/tb";
 import { FaRegClock } from "react-icons/fa";
+
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const Event = () => {
   return (
     <>
-    <div className="w-11/12 h-full m-auto">
       {/* hero section */}
       <div
-        className="mb-4 rounded-sm contact-hero flex items-center justify-center w-full min-h-screen bg-cover bg-center bg-no-repeat"
+        className="mb-4 contact-hero flex items-center justify-center w-full min-h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("/Events/event-hero-modified.jpg")`,
         }}
       >
-        <h1 className="text-6xl font-semibold text-white ">Events</h1>
+        <h1 className="event-heading text-6xl font-semibold text-white ">
+          Events
+        </h1>
       </div>
       {/* Events */}
-      <div className="flex flex-wrap mx-10 mt-20 space-y-4 mb-5">
+      <div className="events-box flex flex-wrap mx-10 mt-20 mb-20">
         <Card />
         <Card />
         <Card />
         <Card />
         <Card />
         <Card />
-      </div>
       </div>
     </>
   );
@@ -35,7 +40,7 @@ const Card = () => {
     <>
       <div className="card w-full md:w-1/2 lg:w-1/3 p-4 bg-white rounded-lg shadow-md overflow-hidden">
         {/* event image */}
-        <div className="h-40 md:h-48 lg:h-56">
+        <div className="h-40 md:h-48 lg:h-56 ">
           <img
             className="object-cover w-full h-full"
             src="/Events/Medical-Camp.jpg"
@@ -65,5 +70,29 @@ const Card = () => {
     </>
   );
 };
+
+gsap.from(".card", {
+  y: 20,
+  opacity: 0,
+  duration: 1,
+  scale: 0.2,
+  stagger: 0.5,
+  scrollTrigger: {
+    trigger: ".card",
+    scroller: "body",
+    scrub: 1,
+  },
+});
+
+gsap.to(".event-heading", {
+  y: -100,
+  duration: 1,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: ".events-box",
+    scroller: "body",
+    scrub: 1,
+  },
+});
 
 export default Event;
