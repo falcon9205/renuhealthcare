@@ -15,9 +15,11 @@ const Login = () => {
     return (
         <>
             <div className='bg-zinc-50 px-3 pt-10 pb-20'>
+                
                 <form className='flex flex-col bg-white justify-between items-center py-10 px-3 sm:px-6 gap-y-6 w-full sm:w-3/5 mx-auto shadow-xl rounded-lg border-2 border-zinc-300'
                     onSubmit={handleFormSubmit}>
-                    <h3 className='text-3xl font-bold text-emerald-600 '>
+                    <img src="./logo.png" className='h-20 w-20' alt='logo'/>
+                    <h3 className='text-3xl font-bold text-[#99C830] '>
                         LOGIN
                     </h3>
                     
@@ -41,7 +43,7 @@ const Login = () => {
                     </label>
 
                     <button type='submit'
-                        className='mx-auto font-semibold text-2xl bg-emerald-500 hover:bg-emerald-700 text-white py-2 text-center px-20 rounded-md'
+                        className='mx-auto font-semibold text-2xl bg-[#99C830] hover:bg-emerald-700 text-white py-2 text-center px-20 rounded-md'
                     >
                         Login
                     </button>

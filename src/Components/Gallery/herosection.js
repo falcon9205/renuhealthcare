@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
-import { Link} from 'react-scroll';
+
 
 const HeroSection = () => {
     const [scrollY, setScrollY] = useState(0);
@@ -25,10 +25,10 @@ const HeroSection = () => {
     return (
         <div className='gallery flex justify-center items-center h-screen bg-center bg-cover'>
             <div className=' flex flex-col items-center'>
-                <div className='center-btn'>
+                {/* <div className='center-btn'>
                     <Link className='btn-home pb-1 m-2' to='home' smooth={true} duration={500}>HOME</Link>
                     <span className='btn-gallery pb-1 m-2'>GALLERY</span>
-                </div>
+                </div> */}
                 <animated.div className="hero-text text-[70px] mt-5 font-system-ui text-white" style={fadeOut}>Galleries</animated.div>
             </div>
            

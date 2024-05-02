@@ -16,8 +16,9 @@ const Signup = () => {
             <div className='bg-zinc-50 px-3 pt-4 pb-20'>
                 <form className='flex flex-col bg-white justify-between items-center py-10 px-3 sm:px-6 gap-y-6 w-full sm:w-3/5 mx-auto shadow-xl rounded-lg border-2 border-zinc-300'
                     onSubmit={handleFormSubmit}>
-                    <h3 className='text-3xl font-bold text-emerald-600 '>
-                        SIGNUP
+                        <img src="./logo.png" className='h-20 w-20' alt='logo'/>
+                    <h3 className='text-3xl font-bold text-[#99C830] '>
+                        SIGN-UP
                     </h3>
                     <label htmlFor='name' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Full Name : </span>
@@ -28,15 +29,17 @@ const Signup = () => {
 
                     <label htmlFor='email' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Email : </span>
-                        <input type='email' placeholder='abc@example.com' id='email' name='email'
+                        <input type='email' placeholder='youremail@example.com' id='email' name='email'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='phone' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Contact No. : </span>
-                        <input type='tel' placeholder='9876543210' id='phone' name='phone'
+                        <input type='tel' placeholder='0000000000' id='phone' name='phone'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
+                            minLength="10"
+                            maxLength="10"
                         />
                     </label>
 
@@ -45,9 +48,9 @@ const Signup = () => {
                         <select name='post' id='post'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         >
-                            <option value='srhod'>Sr HOD</option>
-                            <option value='hod'>HOD</option>
-                            <option value='coo'>COO</option>
+                            <option value='srhod'>Chief Operating Officer</option>
+                            <option value='hod'>Senior HOD</option>
+                            <option value='coo'>HOD</option>
                             <option value='intern'>Intern</option>
                         </select>
                     </label>
@@ -65,7 +68,8 @@ const Signup = () => {
                     </label>
 
                     <button type='submit'
-                        className='mx-auto font-semibold text-2xl bg-emerald-500 hover:bg-emerald-700 text-white py-2 text-center px-20 rounded-md'
+                        className='mx-auto font-semibold text-2xl bg-[#99C830] 
+                        hover:bg-emerald-700 text-white py-2 text-center px-20 rounded-md'
                     >
                         Signup
                     </button>

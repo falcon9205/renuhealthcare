@@ -11,6 +11,7 @@
 .gallery{
     background-image: url(./images/Child-Support.jpg);
     height: 85vh;
+    border-radius: 2px;
     min-width: 100%;
     background-size: cover;
     background-repeat: no-repeat;

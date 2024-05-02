@@ -11,9 +11,11 @@ const Gallery = () => {
 
   return (
     <>
+    <div className='sm:w-11/12 bg-gray-100 m-auto'>
       <Herosection />
       <Grid />
       <Band />
+      </div>
     </>
   );
 };

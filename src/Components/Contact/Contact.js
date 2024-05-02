@@ -36,15 +36,16 @@ const ContactUs = () => {
 
   return (
     <>
+      <div className="sm:w-11/12 m-auto">
       <ToastContainer />
       {/* hero section */}
       <div
-        className="mb-4 contact-hero flex items-center justify-center w-full min-h-screen bg-cover bg-center bg-no-repeat"
+        className="mb-4 contact-hero h-52 sm:h-96  md:h-[40rem] flex items-center justify-center w-full  bg-cover rounded-sm bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("/Contact/contact-hero-1.jpg")`,
         }}
       >
-        <h1 className="contact-us text-6xl font-semibold text-white ">
+        <h1 className="contact-us text-4xl font-semibold text-white ">
           Contact Us
         </h1>
       </div>
@@ -98,6 +99,7 @@ const ContactUs = () => {
           <div className="flex justify-center ">
             <a
               target="_blank"
+              rel="noreferrer"
               href="https://www.google.com/maps/search/1+branch---479,+(Baspadamka,+Tehsil+Pataudi,+Gurugram,+Haryana+-+122503,+India/@28.3379119,76.7788465,15z/data=!3m1!4b1?entry=ttu"
             >
               <img
@@ -108,6 +110,7 @@ const ContactUs = () => {
             </a>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

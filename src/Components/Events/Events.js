@@ -11,8 +11,9 @@ const Event = () => {
   return (
     <>
       {/* hero section */}
+      <div className="bg-gray-100 m-auto sm:w-11/12">
       <div
-        className="mb-4 contact-hero flex items-center justify-center w-full min-h-screen bg-cover bg-center bg-no-repeat"
+        className="mb-4 contact-hero flex items-center justify-center w-full h-52 sm:h-96  md:h-[40rem] rounded-sm bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url("/Events/event-hero-modified.jpg")`,
         }}
@@ -22,13 +23,14 @@ const Event = () => {
         </h1>
       </div>
       {/* Events */}
-      <div className="events-box flex flex-wrap mx-10 mt-20 mb-20">
+      <div className="events-box flex flex-wrap mx-10 mt-20 space-y-2 mb-20">
         <Card />
         <Card />
         <Card />
         <Card />
         <Card />
         <Card />
+      </div>
       </div>
     </>
   );

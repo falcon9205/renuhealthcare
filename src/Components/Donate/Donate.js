@@ -1,16 +1,6 @@
 import React, {useState} from "react";
 import {motion} from "framer-motion";
 import { fadeIn } from "./Variant";
-// import image1 from "./Donate/img1.png"
-// import image2 from "./Donate/img2.png";
-// import image3 from "./Donate/img4.png";
-// import image4 from "./Donate/mainimg.png";
-// import image5 from "./Donate/mainimg2.png";
-// import image6 from "./Donate/education.png";
-// import logo1 from "./Donate/logo-give.png";
-// import donateImg from "./Donate/donateimg.png";
-// import donateForm from "./Donate/donate.png";
-
 
 const Donate = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -26,12 +16,13 @@ const Donate = () => {
 
   return (
     <>
+    <div className="sm:w-11/12 m-auto bg-gray-100">
       <motion.div 
         variants={fadeIn("up", 0.2)}
         initial="hidden"
         whileInView={"show"}
         viewport={{ once: false, amount: 0.6 }}
-        className="min-h-screen flex flex-col justify-center  sm:px-14 lg:px-32 px-5 text-white  bg-no-repeat bg-cover opacity-90"
+        className="h-52 sm:h-96  md:h-[40rem] rounded-sm flex flex-col justify-center  sm:px-14 lg:px-32 px-5 text-white  bg-no-repeat bg-cover opacity-90"
         style={{
           backgroundImage: `url("/Donate/main3.png")`,
         }}
@@ -165,8 +156,9 @@ const Donate = () => {
             viewport={{ once: false, amount: 0.6 }}
             className="flex flex-col justify-center mt-0 72634mb-16 p-2 md:p-14 sm:item-center"
           >
-            <span className="mb-4 text-4xl font-bold text-bPrimary ">
-              Renu Sharma HealthCare
+            <img src="./logo.png" className='h-20 w-20 m-auto' alt='logo'/>
+            <span className="mb-4 capitalize text-4xl font-bold text-bPrimary ">
+              RSHE & Foundation
             </span>
             <span className="font-bold text-2xl text-center text-gray-1000 mb-4 tracking-widest">
               Support Us!
@@ -253,6 +245,7 @@ const Donate = () => {
           alt=""
           className="w-full h-1/2 mt-6 mb-6 shadow-2xl rounded-2xl"
         />
+      </div>
       </div>
     </>
   );

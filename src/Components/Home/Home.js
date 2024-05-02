@@ -63,10 +63,11 @@ const Home = () => {
 
   return (
     <>
+    <div className="">
       {/* GSAP corousel  */}
       <div
         ref={carouselRef}
-        className=" h-52 sm:h-96  md:h-[40rem] sm:w-11/12 m-auto relative rounded-sm"
+        className="bg-gray-100 h-52 sm:h-96  md:h-[40rem] sm:w-11/12 m-auto relative rounded-sm"
       >
         <img
           src="./HomepageImages/Corousel/Home8.jpg"
@@ -111,7 +112,7 @@ const Home = () => {
       </div>
 
       {/* donation,volunteer,sponsor portion */}
-      <div className=" mt-5 border  h-50 md:flex w-11/12 m-auto gap-5 space-y-10 md:space-y-0">
+      <div className="bg-gray-100 mt-5 border  h-50 md:flex w-11/12 m-auto gap-5 space-y-10 md:space-y-0">
         {/* donation */}
         <div className=" h-full w-full flex border-blue-300 ">
           <img
@@ -174,7 +175,7 @@ const Home = () => {
       </div>
 
       {/* vounteer form section*/}
-      <div className="h-[30rem] w-full sm:w-11/12 mt-5 mx-auto  md:flex md:h-96 mb-5">
+      <div className="h-[30rem] bg-gray-100 w-full sm:w-11/12 mt-5 mx-auto  md:flex md:h-96 mb-5">
         <div className="w-full  md:h-full  text-center space-y-4 md:mt-10">
           <h1 className="capitalize font-semibold font-sans text-2xl">Share your Volunteering Ideas</h1>
           <form
@@ -257,6 +258,7 @@ const Home = () => {
           />
         </div>
       </div>
+      </div> 
 
      
     </>
