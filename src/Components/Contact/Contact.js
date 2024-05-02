@@ -1,5 +1,9 @@
 import React from "react";
 
+import { IoChatbubblesOutline } from "react-icons/io5";
+import { FaRegHandshake } from "react-icons/fa";
+import { TbMessageCircleQuestion } from "react-icons/tb";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -49,8 +53,9 @@ const ContactUs = () => {
         </h1>
       </div>
 
-      {/* input for contact */}
-      <div className="contact-section w-full mx-12 mt-12 mb-12 flex flex-col md:flex-row md:justify-between lg:flex-row lg:justify-around ">
+      {/* Form and location */}
+      <div className="contact-section mx-12 m-12  flex flex-col md:flex-row md:justify-between ">
+        {/* input for contact */}
         <div className="contact-input md:w-1/2 md:px-4 ">
           <h2 className="mb-4 text-3xl text-center">
             Do you have any questions?
@@ -86,7 +91,7 @@ const ContactUs = () => {
             <div className="flex justify-center ">
               <button
                 type="submit"
-                className="mb-4 rounded-lg content-center w-1/2 p-2 font-semibold text-xl bg-orange-500 text-white shadow-lg hover:scale-110 duration-500"
+                className="mb-4 rounded-lg sm:w-1/2 content-center w-full p-2 font-semibold text-xl bg-orange-500 text-white shadow-lg hover:scale-110 duration-500"
               >
                 Send Message
               </button>
@@ -109,6 +114,44 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
+
+      {/* Chat Partner Question */}
+      <div className="contact-cards flex justify-around mt-20 mb-12 flex-wrap ">
+        <div className=" contact-card h-60 w-80 m-8 flex justify-center relative rounded-lg bg-[#CAE4F7] hover:transform hover:translate-y-2 duration-500 ease-in-out">
+          <div className=" flex justify-center items-center contact-circle rounded-full bg-white w-32 h-32 absolute top-[-60px] z-10 shadow-2xl shadow-slate-600 hover:transform hover:translate-y-2 duration-500 ease-in-out">
+            <IoChatbubblesOutline className="h-16 align-middle w-16" />
+          </div>
+          <div className=" px-4 pb-4 flex justify-end font-semibold flex-col ">
+            <p className="text-slate-500">Chat with live</p>
+            <p className="text-wrap text-xl my-1">Chat with our live experts</p>
+            <p className="text-red-600">Chat now</p>
+          </div>
+        </div>
+        <div className="contact-card h-60 w-80 m-8 flex justify-center relative rounded-lg bg-[#CAE4F7] hover:transform hover:translate-y-2 duration-500 ease-in-out">
+          <div className=" flex justify-center items-center contact-circle rounded-full bg-white w-32 h-32 absolute top-[-60px] z-10 shadow-2xl shadow-slate-600 hover:transform hover:translate-y-2 duration-500 ease-in-out">
+            <FaRegHandshake className="h-16 align-middle w-16" />
+          </div>
+          <div className=" px-4 pb-4  flex justify-end font-semibold flex-col ">
+            <p className="text-slate-500">Become a partner</p>
+            <p className="text-wrap text-xl my-1">
+              Enhance your helping hand for peoples
+            </p>
+            <p className="text-red-600">Join now</p>
+          </div>
+        </div>
+        <div className="contact-card h-60 w-80 m-8 flex justify-center relative rounded-lg bg-[#CAE4F7] hover:transform hover:translate-y-2 duration-500 ease-in-out">
+          <div className=" flex justify-center items-center contact-circle rounded-full bg-white w-32 h-32 absolute top-[-60px] z-10 shadow-2xl shadow-slate-600 hover:transform hover:translate-y-2 duration-500 ease-in-out">
+            <TbMessageCircleQuestion className="h-16 align-middle w-16" />
+          </div>
+          <div className=" px-4 pb-4 flex justify-end font-semibold flex-col ">
+            <p className="text-slate-500">Ask your question</p>
+            <p className="text-wrap text-xl my-1">
+              Ask your any question and get updates
+            </p>
+            <p className="text-red-600">Ask now</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
@@ -117,11 +160,22 @@ gsap.to(".contact-hero .contact-us", {
   y: -100,
   duration: 1,
   opacity: 0,
-  scrollTrigger: {
-    trigger: ".contact-section",
-    scroller: "body",
-    scrub: 1,
-  },
+  // scrollTrigger: {
+  //   trigger: ".contact-section",
+  //   scroller: "body",
+  //   scrub: 1,
+  // },
+});
+
+gsap.from(".contact-cards", {
+  y: 100,
+  duration: 1,
+  scale: 0.5,
+  stagger: true,
+  // scrollTrigger: {
+  //   trigger: ".contact-cards",
+  //   scroller: "body",
+  // },
 });
 
 export default ContactUs;
