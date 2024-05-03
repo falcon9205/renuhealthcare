@@ -1,15 +1,10 @@
-import React, {useState} from "react";
+import React, {useState, useRef} from "react";
 import {motion} from "framer-motion";
 import { fadeIn } from "./Variant";
-// import image1 from "./Donate/img1.png"
-// import image2 from "./Donate/img2.png";
-// import image3 from "./Donate/img4.png";
-// import image4 from "./Donate/mainimg.png";
-// import image5 from "./Donate/mainimg2.png";
-// import image6 from "./Donate/education.png";
-// import logo1 from "./Donate/logo-give.png";
-// import donateImg from "./Donate/donateimg.png";
-// import donateForm from "./Donate/donate.png";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Slider from "react-slick";
 
 
 const Donate = () => {
@@ -24,6 +19,46 @@ const Donate = () => {
     setIsValid(isValidPhoneNumber);
   };
 
+  const slider = useRef(null);
+  const settings = {
+    accessibility: true,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    arrows: false,
+    slidesToShow: 3,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1023,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+    ],
+  };
+  
   return (
     <>
       <motion.div 
@@ -154,6 +189,103 @@ const Donate = () => {
           </div>
         </div>
       </div>
+
+{/* Slick carousal */}
+      <motion.div className="min-h-screen w-full flex flex-col justify-center sm:px-10 sm:my-0  mb-10 mt-2">
+        <motion.div
+          // variants={fadeIn("up", 0.2)}
+          // initial="hidden"
+          // whileInView={"show"}
+          // viewport={{ once: false, amount: 0.6 }}
+          className="flex flex-col items-center lg:flex-row justify-center mb-10 lg:mb-0"
+        >
+          <div>
+            <h1 className="text-3xl font-semibold text-center justify-center mt-2  lg:text-start font-serif">
+              Rise Your Hand To Help The Poor Family
+            </h1>
+          </div>
+          <div className="flex float-end">
+            <button
+              className=" text-bPrimary px-2  py-2 rounded-lg  active:bg-slate-600"
+              onClick={() => slider.current.slickPrev()}
+            >
+              <FaArrowLeft size={20} />
+            </button>
+            <button
+              className=" text-bPrimary px-4 py-2 rounded-lg  active:bg-slate-600"
+              onClick={() => slider.current.slickNext()}
+            >
+              <FaArrowRight size={20} />
+            </button>
+          </div>
+        </motion.div>
+        <div className="w-full mt-5 mb-0">
+          <Slider ref={slider} {...settings}>
+            <div className="h-[300px] w-full text-nGrey gap-10 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mb-2 sm:h[550px] cursor-pointer ">
+              <div>
+                <img
+                  src="./Donate/mainimg2.png"
+                  className=" h-56 rounded-t-xl gap-11 w-full object-cover"
+                  alt=""
+                />
+              </div>
+
+              <div className="flex flex-col justify-center items-center">
+                <h3 className="font-semibold text-xl pt-4">
+                  Rise Your Hand for Education
+                </h3>
+              </div>
+            </div>
+            <div className="h-[300px] text-nGrey rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] gap-5 mb-2 cursor-pointer ">
+              <img src="./Donate/mainimg.png" className="h-56 rounded-t-xl w-full" alt="" />
+
+              <div className="flex flex-col justify-center items-center">
+                <h3 className="font-semibold text-xl pt-4">
+                  Rise Your Hand for Medical
+                </h3>
+              </div>
+            </div>
+            <div className="h-[300px] text-nGrey rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mb-2 cursor-pointer ">
+              <img src="./Donate/tabimage1.png" className="h-56 rounded-t-xl w-full" alt="" />
+
+              <div className="flex flex-col justify-center items-center">
+                <h3 className="font-semibold text-xl pt-4">
+                  Rise Your Hand for Poors
+                </h3>
+              </div>
+            </div>
+            <div className="h-[300px] text-nGrey rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mb-2 cursor-pointer ">
+              <img src="./Donate/education.png" className="h-56 rounded-t-xl w-full" alt="" />
+
+              <div className="flex flex-col justify-center items-center">
+                <h3 className="font-semibold text-xl pt-4">
+                  Rise Your Hand for Children
+                </h3>
+              </div>
+            </div>
+            <div className="h-[300px] text-nGrey rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mb-2 cursor-pointer ">
+              <img src="./Donate/food.png" className="h-56 rounded-t-xl w-full" alt="" />
+
+              <div className="flex flex-col justify-center  items-center">
+                <h3 className="font-semibold text-xl  pt-4 mb-4">
+                  Rise Your Hand for Orphans
+                </h3>
+              </div>
+            </div>
+            
+            <div className="h-[300px] text-nGrey rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] mb-2 cursor-pointer ">
+              <img src="./Donate/img4.png" className="h-56 rounded-t-xl w-full" alt="" />
+
+              <div className="flex flex-col justify-center  items-center">
+                <h3 className="font-semibold text-xl  pt-4 mb-4">
+                  Rise Your Hand for Needy People
+                </h3>
+              </div>
+            </div>
+          </Slider>
+        </div>
+      </motion.div>
+
       {/* Donation Form */}
 
       <motion.div className=" w-full flex items-center justify-center min-h-screen bg-gray-100">
