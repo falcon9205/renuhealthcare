@@ -8,7 +8,7 @@ const Footer = () => {
         {/* ourvision Box */}
         <div className="ourvision  text-center capitalize  w-full">
           <h1 className="text-2xl ">Our Vision</h1>
-          <p className="text-left text-sm text px-3 py-1 font-normal">
+          <p className="text-left sm:text-center text-sm text px-3 py-1 font-normal">
             To create a world where all individuals have equal access to basic
             human rights, education, healthcare, and opportunities for
             sustainable livelihoods. We envision empowered communities working
@@ -19,7 +19,7 @@ const Footer = () => {
         </div>
 
         {/* Connect with us Box */}
-        <div className="connectwithus      w-full uppercase space-y-4">
+        <div className="connectwithus capitalize w-full  space-y-4">
           <h1 className="text-2xl text-center">Connect with us</h1>
 
           {/* particular div for flex logo with h1-tag */}
@@ -64,7 +64,7 @@ const Footer = () => {
         </div>
 
         {/* Any suggestion Box */}
-        <div className="anysuggestion  w-full  uppercase space-y-4">
+        <div className="anysuggestion capitalize  w-full   space-y-4">
           <h1 className="text-2xl text-center">Any Suggestions</h1>
           <div>
             {/* form content */}
@@ -112,7 +112,7 @@ const Footer = () => {
         </div>
 
         {/* Contact us Box */}
-        <div className="connectwithus items-center flex flex-col w-full uppercase space-y-4">
+        <div className="connectwithus items-center flex flex-col w-full capitalize space-y-4">
           <h1 className="text-2xl text-center">Contact us</h1>
 
           {/* particular div for flex logo with h1-tag */}
