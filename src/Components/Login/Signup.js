@@ -22,21 +22,21 @@ const Signup = () => {
                     </h3>
                     <label htmlFor='name' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Full Name : </span>
-                        <input type='text' placeholder='John Doe' id='name' name='name'
+                        <input type='text' placeholder='John Doe' required id='name' name='name'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='email' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Email : </span>
-                        <input type='email' placeholder='youremail@example.com' id='email' name='email'
+                        <input type='email' placeholder='youremail@example.com' required id='email' name='email'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='phone' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Contact No. : </span>
-                        <input type='tel' placeholder='0000000000' id='phone' name='phone'
+                        <input type='tel' placeholder='0000000000' required id='phone' name='phone'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                             minLength="10"
                             maxLength="10"
