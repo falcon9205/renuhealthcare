@@ -7,9 +7,25 @@ const Login = () => {
 
     function handleFormSubmit(e) {
         e.preventDefault();
-        console.log("Form submitted");
-        console.log(e.target.email.value);
-        console.log(e.target.password.value);
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        fetch('http://localhost:5000/api/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('User is logged in successfully!');
+            // Handle the response data here
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle the error here
+        });
     }
 
     return (
@@ -65,8 +81,6 @@ const Login = () => {
 }
 
 export default Login;
-
-
 
 function IconEyeInvisible(props) {
     return (
