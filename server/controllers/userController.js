@@ -4,43 +4,49 @@ import jwt from "jsonwebtoken";
 import generateCertificate  from "../Util/pdfGenerator.js";
 
 // register new user...
-const userRegistration = async (req, res)=>{
-    const {name, email, password, cpassword, tc} = req.body;
-    const user = await userModal.findOne({email: email});
-    if (user) {
-        res.send({"status": "failed", "message": "Email already exists"});
-    }else{
-        // validate all field contain data or not
-        if (name && email && password && cpassword && tc) {
-            if (password === cpassword) {
-               try {
-                    const salt = await bcrypt.genSalt(10);
-                    const hashPassword = await bcrypt.hash(password, salt);
-                    const createUser = new userModal({
-                        name: name,
-                        email: email,
-                        password: hashPassword,
-                        tc: tc
-                    })
+const userRegistration = async (req, res) => {
+    const { name, email, phone, post, password } = req.body;
 
-                        const newUser = await createUser.save();
-                        // Now generate JWT 
-                        const token = jwt.sign({userID: newUser._id}, process.env.JWT_SECRET_KEY, {expiresIn: '5d'});
-                        generateCertificate(name, email);
-
-                        res.status(201).json({user:newUser, token});
-
-               } catch (error) {
-                    res.send({"status": "failed", "message": "unable to register"});
-               }
-            }else{
-                res.send({"status": "failed", "message": "password and confirm password not matched"});
-            }
-        }else{
-            res.send({"status": "failed", "message": "All Fields are required"});
+    try {
+        // Check if user with email already exists
+        const existingUser = await userModal.findOne({ email: email });
+        if (existingUser) {
+            return res.status(400).json({ status: "failed", message: "Email already exists" });
         }
+
+        // Validate that all fields contain data
+        if (!name || !email || !phone || !post || !password) {
+            return res.status(400).json({ status: "failed", message: "All fields are required" });
+        }
+
+        // Hash the password
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(password, salt);
+
+        // Create new user instance
+        const newUser = new userModal({
+            name: name,
+            email: email,
+            phone: phone,
+            post: post,
+            password: hashPassword
+        });
+
+        // Save the new user to the database
+        const savedUser = await newUser.save();
+
+        // Optionally, generate JWT token
+        const token = jwt.sign({ userID: savedUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
+        generateUserCertificate(name, email);
+
+        // Send response with user data and token
+        res.status(201).json({ status: "success", user: savedUser, token });
+    } catch (error) {
+        console.error("Error registering user:", error);
+        res.status(500).json({ status: "failed", message: "Unable to register" });
     }
-}
+};
+
 
 //  user login..
 const userLogin = async (req, res) => {
