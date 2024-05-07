@@ -1,36 +1,14 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
-
 const Signup = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
 
     function handleFormSubmit(e) {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        const userData = Object.fromEntries(formData.entries());
-
-        fetch('http://localhost:5000/api/user/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('User registered successfully'); // Show alert for success
-                // Handle success, e.g. redirect to another page
-            } else {
-                throw new Error('Failed to register user');
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            setErrorMessage('Failed to register user');
-        });
+        console.log("Form submitted");
+        console.log(e.target);
     }
 
     return (
@@ -42,7 +20,6 @@ const Signup = () => {
                     <h3 className='text-3xl font-bold text-[#99C830] '>
                         SIGN-UP
                     </h3>
-                    {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                     <label htmlFor='name' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Full Name : </span>
                         <input type='text' placeholder='John Doe' required id='name' name='name'
@@ -107,6 +84,8 @@ const Signup = () => {
 }
 
 export default Signup;
+
+
 
 function IconEyeInvisible(props) {
     return (
