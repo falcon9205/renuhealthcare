@@ -1,14 +1,36 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
+
 const Signup = () => {
 
     const [showPassword, setShowPassword] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     function handleFormSubmit(e) {
         e.preventDefault();
-        console.log("Form submitted");
-        console.log(e.target);
+        const formData = new FormData(e.target);
+        const userData = Object.fromEntries(formData.entries());
+
+        fetch('http://localhost:5000/api/user/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('User registered successfully'); // Show alert for success
+                // Handle success, e.g. redirect to another page
+            } else {
+                throw new Error('Failed to register user');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            setErrorMessage('Failed to register user');
+        });
     }
 
     return (
@@ -20,23 +42,24 @@ const Signup = () => {
                     <h3 className='text-3xl font-bold text-[#99C830] '>
                         SIGN-UP
                     </h3>
+                    {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                     <label htmlFor='name' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Full Name : </span>
-                        <input type='text' placeholder='John Doe' required id='name' name='name'
+                        <input type='text' placeholder='John Doe' id='name' name='name'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='email' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Email : </span>
-                        <input type='email' placeholder='youremail@example.com' required id='email' name='email'
+                        <input type='email' placeholder='youremail@example.com' id='email' name='email'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='phone' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Contact No. : </span>
-                        <input type='tel' placeholder='0000000000' required id='phone' name='phone'
+                        <input type='tel' placeholder='0000000000' id='phone' name='phone'
                             className='px-3 py-3 bg-zinc-100 rounded-lg focus:bg-zinc-200 outline-none placeholder:text-zinc-500'
                             minLength="10"
                             maxLength="10"
@@ -84,8 +107,6 @@ const Signup = () => {
 }
 
 export default Signup;
-
-
 
 function IconEyeInvisible(props) {
     return (
