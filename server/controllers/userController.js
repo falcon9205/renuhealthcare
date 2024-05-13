@@ -2,13 +2,14 @@ import userModal from "../models/User.js";
 import bcrypt from  "bcrypt";
 import jwt from "jsonwebtoken";
 import generateCertificate  from "../Util/pdfGenerator.js";
+import Certificate from '../models/Certificate.js';
+
 
 // register new user...
 const userRegistration = async (req, res) => {
     const { name, email, phone, post, password } = req.body;
 
     try {
-        // Check if user with email already exists
         const existingUser = await userModal.findOne({ email: email });
         if (existingUser) {
             return res.status(400).json({ status: "failed", message: "Email already exists" });
@@ -37,7 +38,8 @@ const userRegistration = async (req, res) => {
 
         // Optionally, generate JWT token
         const token = jwt.sign({ userID: savedUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
-        generateUserCertificate(name, email);
+        const userId = savedUser._id;
+        generateUserCertificate(name, email,userId);
 
         // Send response with user data and token
         res.status(201).json({ status: "success", user: savedUser, token });
@@ -139,10 +141,33 @@ const userPasswordReset = async (req, res) => {
     }
 }
 
-const generateUserCertificate = (name, email) => {
+const generateUserCertificate = (name, email,userID) => {
     // Call the function to generate the certificate
-    generateCertificate(name, email);
+    generateCertificate(name, email,userID);
 };
+
+const download=async (req, res) => {
+    try {
+        // Find the certificate in the database based on userId
+        const certificate = await Certificate.findOne({ userId: req.query.userId });
+        console.log(certificate)
+        // If certificate not found
+        if (!certificate) {
+            return res.status(404).send('Certificate not found');
+        }
+
+        // Set response headers for PDF file
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename=Offer_letter.pdf`);
+
+        // Send the PDF buffer as response
+        res.send(certificate.pdfBuffer);
+    } catch (error) {
+        console.error('Error downloading certificate:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 
 export { generateUserCertificate };
 
@@ -151,5 +176,6 @@ export {
     userLogin,
     changeUserPassword,
     sendEmailResetPassword,
-    userPasswordReset 
+    userPasswordReset ,
+    download
 };

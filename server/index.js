@@ -8,11 +8,22 @@ dotenv.config();
 
 const app = express();
 
-connectDb(); // Call the connectDb function
+
+connectDb()
+  .then(() => {
+    // Start the server after successful connection
+    app.listen(port, () => {
+        console.log(`Server listening at localhost:${port}`);
+    });
+  })
+  .catch(err => {
+    console.error('Failed to start server:', err);
+    process.exit(1); // Exit the process with a non-zero exit code
+  });// Call the connectDb function
 
 import userRouter from './routes/userRoutes.js';
 
-const port = process.env.PORT;
+const port = process.env.PORT||5000;
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +31,5 @@ app.use(express.json());
 // Load Routes
 app.use("/api/user/", userRouter);
 
-app.listen(port, () => {
-    console.log(`Server listening at localhost:${port}`);
-});
+
+//MONGODB_URI=mongodb+srv://anshul:anshul112@clusterdatabase.24furrx.mongodb.net/renuapp?retryWrites=true&w=majority&appName=ClusterDatabase

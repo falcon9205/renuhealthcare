@@ -6,7 +6,9 @@ const userSchema = new mongoose.Schema({
     phone: { type: String, required: true },
     post: { type: String, required: true },
     password: { type: String, required: true },
-    certificate: { type: Buffer }
+    certificate: { type: Buffer },
+    createdAt: { type: Date, default: Date.now }, 
+    updatedAt: { type: Date, default: Date.now },
 });
 
 
