@@ -39,7 +39,7 @@ const userRegistration = async (req, res) => {
         // Optionally, generate JWT token
         const token = jwt.sign({ userID: savedUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
         const userId = savedUser._id;
-        generateUserCertificate(name, email,userId);
+        generateUserCertificate(name, email,userId,post);
 
         // Send response with user data and token
         res.status(201).json({ status: "success", user: savedUser, token });
@@ -141,9 +141,9 @@ const userPasswordReset = async (req, res) => {
     }
 }
 
-const generateUserCertificate = (name, email,userID) => {
+const generateUserCertificate = (name, email,userID,post) => {
     // Call the function to generate the certificate
-    generateCertificate(name, email,userID);
+    generateCertificate(name, email,userID,post);
 };
 
 const download=async (req, res) => {

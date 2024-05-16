@@ -1,101 +1,186 @@
-import fs from 'fs';
-import PDFDocument from 'pdfkit';
-import Certificate from '../models/Certificate.js';
+import fs from "fs";
+import PDFDocument from "pdfkit";
+import Certificate from "../models/Certificate.js";
 
-const generateCertificate = async (name, email,userId) => {
-    return new Promise(async (resolve, reject) => {
-        const doc = new PDFDocument();
-        const buffers = [];
-        const certificatePath = `Certificates/${name}_certificate.pdf`; // Adjust the folder path as needed
-        const writeStream = fs.createWriteStream(certificatePath);
+const generateCertificate = async (name, email, userId, post) => {
+  return new Promise(async (resolve, reject) => {
+    const doc = new PDFDocument();
+    const buffers = [];
+    const certificatePath = `Certificates/${name}_certificate.pdf`; // Adjust the folder path as needed
+    const writeStream = fs.createWriteStream(certificatePath);
 
-        // Pipe the PDF document to buffers array
-        doc.on('data', buffers.push.bind(buffers));
+    // Pipe the PDF document to buffers array
+    doc.on("data", buffers.push.bind(buffers));
 
-        // Pipe the PDF document to write stream to save locally
-        doc.pipe(writeStream);
+    // Pipe the PDF document to write stream to save locally
+    doc.pipe(writeStream);
 
-        doc.font('Helvetica');
-        doc.fontSize(12);
-    
-        // Add content to the PDF
-        doc.text(`Date: ${new Date().toLocaleDateString()}`, { align: 'right' });
-        doc.moveDown();
-    
-        doc.fontSize(18).text('Offer Letter For Web Developer Internship', { align: 'center' });
-        doc.moveDown();
-    
-        doc.fontSize(12).text(`Dear ${name}`, { align: 'left' });
-        doc.moveDown();
-    
-        doc.text(`I am delighted & excited to welcome you to ADM EDUCATION & WELFARE SOCIETY as a Web Developer intern. We believe that our team is our biggest strength and we take pride in hiring ONLY the best and the brightest. We are confident that you would play a significant role in the overall success of the venture and we wish you the most enjoyable, learning packed and truly meaningful internship experience with ADM EDUCATION & WELFARE SOCIETY. Your appointment will be governed by the terms & condition presented in the Annexure A.`, { align: 'left' });
-        doc.moveDown();
-    
-        doc.text('We look forward to you joining us. Please do not hesitate to call us for any information you may need. Also, please sign at the end of this offer letter as your acceptance and forward the same to us.', { align: 'left' });
-        doc.moveDown();
-    
-        doc.text('Congratulations!', { align: 'left' });
-        
-        // Finalize PDF
-        doc.end();
-        // Set fonts
-        /*doc.font('Helvetica-Bold');
-        doc.fontSize(28);
+    doc.font("Helvetica");
 
-        // Add content to the PDF
-        doc.text(`Internship Certificate`, { align: 'center' });
-        doc.moveDown(0.5);
+    doc
+      .fontSize(18)
+      .fillColor("green")
+      .font("Helvetica-Bold")
+      .text("Renu Sharma Healthcare Education & Foundation", { align: "left" });
+    doc.moveDown();
 
-        // Set fonts and styles
-        doc.font('Helvetica');
-        doc.fontSize(14);
-        doc.fillColor('#333'); // Dark gray color
+    doc
+      .fontSize(8)
+      .font("Helvetica")
+      .text("Gurugram, Haryana", { align: "left" });
+    doc.fontSize(8).font("Helvetica").text("Sector - 14", { align: "left" });
+    doc
+      .fontSize(8)
+      .font("Helvetica")
+      .text("Pincode: 122503", { align: "left" });
+    doc
+      .fontSize(8)
+      .fillColor("black")
+      .font("Helvetica")
+      .fontSize(10)
+      .moveDown();
 
-        // Add formatted text
-        doc.text(`This is to certify that`, { align: 'center' });doc.text(, { align: 'center', underline: true });
-        doc.text(`has successfully joi the Internship Program.`, { align: 'center' });
-        doc.moveDown(0.5);
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, { align: "left" });
+    doc.moveDown();
+    doc.text(`Subject: Offer letter of ${post}`, { align: "left" });
+    doc.moveDown();
 
-        // Add paragraph with custom styling
-        doc.text(`ADM EDUCATION & WELFARE SOCIETY acknowledges their commitment and dedication throughout the internship period. We wish them all the best in their future endeavors.`, { align: 'left' });
-        doc.moveDown(0.5);
+    doc.text(`Dear ${name},`, { align: "left" });
+    doc.moveDown();
 
-        // Add email
-        doc.fontSize(12);
-        doc.text(`Issued on: `, { align: 'left' });
-        doc.text(`Email: ${email}`, { align: 'left' });
-        
-        // Finalize PDF
-        doc.end();*/
+    doc.text(
+      `We are thrilled to extend an offer of employment for the position of ${post} intern at Renu Sharma Healthcare Education & Foundation. We were impressed by your qualifications and experience, and we believe that you will make a valuable addition to our team.`,
+      { align: "left" }
+    );
+    doc.moveDown();
 
-        writeStream.on('finish', async () => {
-            console.log(`Certificate generated and stored locally at: ${certificatePath}`);
+    doc
+      .text(
+        `To accept this offer, please sign and return this letter by 3 days from now. If you have any questions or concerns, please do not hesitate to contact us at `,
+        { continued: true }
+      )
+      .font("Helvetica-Bold")
+      .text("9671457366", { continued: true })
+      .font("Helvetica")
+      .text(" or ", { continued: true })
+      .font("Helvetica-Bold")
+      .text("Neha.rshefoundation@gmail.com");
 
-            // Read the generated PDF file as a buffer
-            const pdfBuffer = fs.readFileSync(certificatePath);
+    doc
+      .fontSize(8)
+      .fillColor("black")
+      .font("Helvetica")
+      .fontSize(10)
+      .moveDown();
 
-            try {
-                // Create a new certificate document in the database
-                const certificate = new Certificate({
-                    userId,
-                    content: `This is to certify that ${name} successfully completed the internship program.`,
-                    pdfBuffer, // Store the PDF buffer
-                });
-                await certificate.save()
-                console.log(`Certificate stored in the database for ${email}`);
-                resolve({ path: certificatePath, buffer: Buffer.concat(buffers) }); // Resolve with the path to the saved PDF file and the PDF buffer
-            } catch (error) {
-                console.error(`Error storing certificate in the database: ${error.message}`);
-                reject(error);
-            }
+    doc.text(
+      "We are excited about the possibility of you joining our team and look forward to your positive response.",
+      { align: "left" }
+    );
+    doc.moveDown();
+
+    doc.text("Congratulations!", { align: "left" });
+
+    doc.moveDown();
+
+    doc.text(`Name - ${name}`, { align: "left" });
+
+    //  line width and stroke color for the border
+    doc.lineWidth(25);
+    doc.strokeColor("#000080");
+
+    // position for the rectangle at the top right corner just above the border
+    const rectWidth = 100; //  width of the rectangle
+    const rectHeight = 100; //  height of the rectangle
+    const pageWidth = doc.page.width;
+    const pageHeight = doc.page.height;
+
+    //  position for the first rectangle at the top right corner just above the border
+    const rectX = pageWidth - rectWidth; //  right edge of the page
+    const rectY = pageHeight - 60 - rectHeight; // Just above the border
+
+    //  position for the second rectangle on the left side
+    const secondRectX = pageWidth - rectWidth - 100; // right edge of the page
+    const secondRectY = pageHeight - 60 - rectHeight; // Just above the border
+
+    // Draw the border line at the bottom of the page
+    doc
+      .moveTo(0, pageHeight - 50)
+      .lineTo(pageWidth, pageHeight - 50)
+      .stroke();
+
+    const gradient = doc.linearGradient(
+      rectX,
+      rectY,
+      rectX + rectWidth,
+      rectY + rectHeight
+    );
+    gradient.stop(1, "#C21E56	");
+    gradient.stop(1, "#E37383");
+
+    //  position for the third rectangle on the right side
+    const thirdRectX = pageWidth - rectWidth - 200;
+    const thirdRectY = pageHeight - 60 - rectHeight;
+
+    //  third rectangle aligned with the right edge of the page
+
+    doc.rect(rectX, rectY, rectWidth, rectHeight).fill(gradient);
+    //second rectangle aligned with the right edge of the page
+    doc
+      .rect(secondRectX, secondRectY, rectWidth, rectHeight)
+      .fillColor("#C21E56")
+      .fill();
+
+    // gradient for the third rectangle
+    const thirdGradient = doc.linearGradient(
+      thirdRectX,
+      thirdRectY,
+      thirdRectX + rectWidth,
+      thirdRectY + rectHeight
+    );
+    thirdGradient.stop(1, "white"); // White color
+    thirdGradient.stop(1, "#C21E56"); // Dark pink color
+
+    //  third rectangle with the gradient and fill color
+    doc
+      .rect(thirdRectX, thirdRectY, rectWidth, rectHeight)
+      .fill(thirdGradient)
+      .fillColor("#3A9D23")
+      .fill();
+
+    doc.end();
+
+    writeStream.on("finish", async () => {
+      console.log(
+        `Certificate generated and stored locally at: ${certificatePath}`
+      );
+
+      // Read the generated PDF file as a buffer
+      const pdfBuffer = fs.readFileSync(certificatePath);
+
+      try {
+        // Create a new certificate document in the database
+        const certificate = new Certificate({
+          userId,
+          content: `This is to certify that ${name} successfully completed the internship program.`,
+          pdfBuffer, // Store the PDF buffer
         });
-
-        writeStream.on('error', (error) => {
-            console.error(`Error generating certificate: ${error.message}`);
-            reject(error);
-        });
+        await certificate.save();
+        console.log(`Certificate stored in the database for ${email}`);
+        resolve({ path: certificatePath, buffer: Buffer.concat(buffers) }); // Resolve with the path to the saved PDF file and the PDF buffer
+      } catch (error) {
+        console.error(
+          `Error storing certificate in the database: ${error.message}`
+        );
+        reject(error);
+      }
     });
-};
 
+    writeStream.on("error", (error) => {
+      console.error(`Error generating certificate: ${error.message}`);
+      reject(error);
+    });
+  });
+};
 
 export default generateCertificate;
