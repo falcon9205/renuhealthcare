@@ -1,8 +1,9 @@
 import fs from 'fs';
 import PDFDocument from 'pdfkit';
 import Certificate from '../models/Certificate.js';
+import User from '../models/User.js';
 
-const generateCertificate = async (name, email,userId) => {
+const generateCertificate = async (name, email, userId, post) => {
     return new Promise(async (resolve, reject) => {
         const doc = new PDFDocument();
         const buffers = [];
@@ -15,58 +16,48 @@ const generateCertificate = async (name, email,userId) => {
         // Pipe the PDF document to write stream to save locally
         doc.pipe(writeStream);
 
+        // Add background image
+        doc.image('/home/rushabh/Desktop/renuhealthcare/public/logo.png', 0, 0, { width: 612,  opacity: 0.1 }); // Adjust image path, width, and height
+
         doc.font('Helvetica');
         doc.fontSize(12);
-    
+
         // Add content to the PDF
-        doc.text(`Date: ${new Date().toLocaleDateString()}`, { align: 'right' });
+        doc.text(`Renu Sharma Healthcare Education & Foundation`, { align: 'left' });
+        doc.text(`Gurugram, Haryana`, { align: 'left' });
+        doc.text(`Sector - 14`, { align: 'left' });
+        doc.text(`Pincode: 122503`, { align: 'left' });
         doc.moveDown();
-    
-        doc.fontSize(18).text('Offer Letter For Web Developer Internship', { align: 'center' });
+
+        const currentDate = new Date().toLocaleDateString();
+        doc.text(`Date - ${currentDate}`, { align: 'left' });
         doc.moveDown();
-    
-        doc.fontSize(12).text(`Dear ${name}`, { align: 'left' });
+
+        doc.fontSize(18).text(`Subject - Offer letter of ${post}`, { align: 'left' });
         doc.moveDown();
-    
-        doc.text(`I am delighted & excited to welcome you to ADM EDUCATION & WELFARE SOCIETY as a Web Developer intern. We believe that our team is our biggest strength and we take pride in hiring ONLY the best and the brightest. We are confident that you would play a significant role in the overall success of the venture and we wish you the most enjoyable, learning packed and truly meaningful internship experience with ADM EDUCATION & WELFARE SOCIETY. Your appointment will be governed by the terms & condition presented in the Annexure A.`, { align: 'left' });
+
+        doc.fontSize(12).text(`Dear ${name},`, { align: 'left' });
         doc.moveDown();
-    
-        doc.text('We look forward to you joining us. Please do not hesitate to call us for any information you may need. Also, please sign at the end of this offer letter as your acceptance and forward the same to us.', { align: 'left' });
+
+        doc.text(`We are thrilled to extend an offer of employment for the position of ${post} intern at Renu Sharma Healthcare Education & Foundation. We were impressed by your qualifications and experience, and we believe that you will make a valuable addition to our team.`, { align: 'left' });
         doc.moveDown();
-    
-        doc.text('Congratulations!', { align: 'left' });
-        
+
+        doc.text(`To accept this offer, please sign and return this letter by 3 days from now. If you have any questions or concerns, please do not hesitate to contact me at 9671457366 or Neha.rshefoundation@gmail.com`, { align: 'left' });
+        doc.moveDown();
+
+        doc.text(`We are excited about the possibility of you joining our team and look forward to your positive response.`, { align: 'left' });
+        doc.moveDown();
+
+        doc.text(`Congratulations!`, { align: 'left' });
+        doc.moveDown();
+
+        doc.text(`Name - ${name}`, { align: 'left' });
+        doc.moveDown();
+
+        doc.text(`Sign:`, { align: 'left' });
+
         // Finalize PDF
         doc.end();
-        // Set fonts
-        /*doc.font('Helvetica-Bold');
-        doc.fontSize(28);
-
-        // Add content to the PDF
-        doc.text(`Internship Certificate`, { align: 'center' });
-        doc.moveDown(0.5);
-
-        // Set fonts and styles
-        doc.font('Helvetica');
-        doc.fontSize(14);
-        doc.fillColor('#333'); // Dark gray color
-
-        // Add formatted text
-        doc.text(`This is to certify that`, { align: 'center' });doc.text(, { align: 'center', underline: true });
-        doc.text(`has successfully joi the Internship Program.`, { align: 'center' });
-        doc.moveDown(0.5);
-
-        // Add paragraph with custom styling
-        doc.text(`ADM EDUCATION & WELFARE SOCIETY acknowledges their commitment and dedication throughout the internship period. We wish them all the best in their future endeavors.`, { align: 'left' });
-        doc.moveDown(0.5);
-
-        // Add email
-        doc.fontSize(12);
-        doc.text(`Issued on: `, { align: 'left' });
-        doc.text(`Email: ${email}`, { align: 'left' });
-        
-        // Finalize PDF
-        doc.end();*/
 
         writeStream.on('finish', async () => {
             console.log(`Certificate generated and stored locally at: ${certificatePath}`);
@@ -78,10 +69,15 @@ const generateCertificate = async (name, email,userId) => {
                 // Create a new certificate document in the database
                 const certificate = new Certificate({
                     userId,
-                    content: `This is to certify that ${name} successfully completed the internship program.`,
+                    content: `Offer letter for ${name}`,
                     pdfBuffer, // Store the PDF buffer
+                    post: post
                 });
-                await certificate.save()
+                await certificate.save();
+
+                // Update user document in the database with the certificate data
+                await User.findByIdAndUpdate(userId, { certificate: pdfBuffer });
+
                 console.log(`Certificate stored in the database for ${email}`);
                 resolve({ path: certificatePath, buffer: Buffer.concat(buffers) }); // Resolve with the path to the saved PDF file and the PDF buffer
             } catch (error) {
@@ -96,6 +92,5 @@ const generateCertificate = async (name, email,userId) => {
         });
     });
 };
-
 
 export default generateCertificate;

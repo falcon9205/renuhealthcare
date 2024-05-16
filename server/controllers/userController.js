@@ -1,9 +1,8 @@
 import userModal from "../models/User.js";
 import bcrypt from  "bcrypt";
 import jwt from "jsonwebtoken";
-import generateCertificate  from "../Util/pdfGenerator.js";
+import  generateCertificate  from "../Util/pdfGenerator.js";
 import Certificate from '../models/Certificate.js';
-
 
 // register new user...
 const userRegistration = async (req, res) => {
@@ -39,7 +38,7 @@ const userRegistration = async (req, res) => {
         // Optionally, generate JWT token
         const token = jwt.sign({ userID: savedUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
         const userId = savedUser._id;
-        generateUserCertificate(name, email,userId);
+        generateUserCertificate(name, email, userId, post);
 
         // Send response with user data and token
         res.status(201).json({ status: "success", user: savedUser, token });
@@ -48,7 +47,6 @@ const userRegistration = async (req, res) => {
         res.status(500).json({ status: "failed", message: "Unable to register" });
     }
 };
-
 
 //  user login..
 const userLogin = async (req, res) => {
@@ -64,19 +62,19 @@ const userLogin = async (req, res) => {
                      
                     res.status(200).json({user, token});
                 }else{
-                    res.send({"status": "failed", "message": "invalid email or password"});
+                    res.send({"status": "failed", "message": "Invalid email or password"});
                 }
             }else{
                 res.send({"status": "failed", "message": "You are not registered"});
             }
         }else{
-            res.send({"status": "failed", "message": "All Fields are required"});
+            res.send({"status": "failed", "message": "All fields are required"});
         }
     } catch (error) {
         res.send({"status": "failed", "message": "Unable to login"});
-
     }
 }
+
 // change user password after login through settings etc..
 const changeUserPassword = async (req, res) => {
     const { password, cpassword } = req.body;
@@ -85,18 +83,16 @@ const changeUserPassword = async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             const newHashPassword = await bcrypt.hash(password, salt);
             await userModal.findByIdAndUpdate(req.user._id, {$set: {password: newHashPassword}})
-            res.send({"status": "200", "message": "change password successfully"});
-            generateCertificate(name, email);
+            res.send({"status": "200", "message": "Change password successfully"});
+            generateCertificate(req.user.name, req.user.email);
 
         }else{
-            res.send({"status": "failed", "message": "password and confirm password not matched"});
+            res.send({"status": "failed", "message": "Password and confirm password not matched"});
         }
     }else{
-        res.send({"status": "failed", "message": "All Fields are required"});
+        res.send({"status": "failed", "message": "All fields are required"});
     }
 }
-
-
 
 // Reset password, or forget password to send email...
 const sendEmailResetPassword = async (req, res) => {
@@ -141,12 +137,12 @@ const userPasswordReset = async (req, res) => {
     }
 }
 
-const generateUserCertificate = (name, email,userID) => {
+const generateUserCertificate = (name, email, userId, post) => {
     // Call the function to generate the certificate
-    generateCertificate(name, email,userID);
+    generateCertificate(name, email, userId, post);
 };
 
-const download=async (req, res) => {
+const download = async (req, res) => {
     try {
         // Find the certificate in the database based on userId
         const certificate = await Certificate.findOne({ userId: req.query.userId });
@@ -167,9 +163,6 @@ const download=async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 };
-
-
-export { generateUserCertificate };
 
 export {
     userRegistration,
