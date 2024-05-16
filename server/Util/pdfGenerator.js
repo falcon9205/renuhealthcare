@@ -1,19 +1,22 @@
-import fs from "fs";
-import PDFDocument from "pdfkit";
-import Certificate from "../models/Certificate.js";
+import fs from 'fs';
+import PDFDocument from 'pdfkit';
+import Certificate from '../models/Certificate.js';
 
-const generateCertificate = async (name, email, userId, post) => {
-  return new Promise(async (resolve, reject) => {
-    const doc = new PDFDocument();
-    const buffers = [];
-    const certificatePath = `Certificates/${name}_certificate.pdf`; // Adjust the folder path as needed
-    const writeStream = fs.createWriteStream(certificatePath);
+const generateCertificate = async (name, email,userId) => {
+    return new Promise(async (resolve, reject) => {
+        const doc = new PDFDocument();
+        const buffers = [];
+        const certificatePath = `Certificates/${name}_certificate.pdf`; // Adjust the folder path as needed
+        const writeStream = fs.createWriteStream(certificatePath);
 
     // Pipe the PDF document to buffers array
     doc.on("data", buffers.push.bind(buffers));
 
     // Pipe the PDF document to write stream to save locally
     doc.pipe(writeStream);
+
+        // Add background image
+        doc.image('/home/rushabh/Desktop/renuhealthcare/public/logo.png', 0, 0, { width: 612,  opacity: 0.1 }); // Adjust image path, width, and height
 
     doc.font("Helvetica");
 
@@ -158,23 +161,21 @@ const generateCertificate = async (name, email, userId, post) => {
       // Read the generated PDF file as a buffer
       const pdfBuffer = fs.readFileSync(certificatePath);
 
-      try {
-        // Create a new certificate document in the database
-        const certificate = new Certificate({
-          userId,
-          content: `This is to certify that ${name} successfully completed the internship program.`,
-          pdfBuffer, // Store the PDF buffer
+            try {
+                // Create a new certificate document in the database
+                const certificate = new Certificate({
+                    userId,
+                    content: `This is to certify that ${name} successfully completed the internship program.`,
+                    pdfBuffer, // Store the PDF buffer
+                });
+                await certificate.save()
+                console.log(`Certificate stored in the database for ${email}`);
+                resolve({ path: certificatePath, buffer: Buffer.concat(buffers) }); // Resolve with the path to the saved PDF file and the PDF buffer
+            } catch (error) {
+                console.error(`Error storing certificate in the database: ${error.message}`);
+                reject(error);
+            }
         });
-        await certificate.save();
-        console.log(`Certificate stored in the database for ${email}`);
-        resolve({ path: certificatePath, buffer: Buffer.concat(buffers) }); // Resolve with the path to the saved PDF file and the PDF buffer
-      } catch (error) {
-        console.error(
-          `Error storing certificate in the database: ${error.message}`
-        );
-        reject(error);
-      }
-    });
 
     writeStream.on("error", (error) => {
       console.error(`Error generating certificate: ${error.message}`);
