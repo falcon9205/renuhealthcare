@@ -2,7 +2,7 @@ import fs from 'fs';
 import PDFDocument from 'pdfkit';
 import Certificate from '../models/Certificate.js';
 
-const generateCertificate = async (name, email,userId) => {
+const generateCertificate = async (name, email,userId,post) => {
     return new Promise(async (resolve, reject) => {
         const doc = new PDFDocument();
         const buffers = [];
@@ -14,9 +14,6 @@ const generateCertificate = async (name, email,userId) => {
 
     // Pipe the PDF document to write stream to save locally
     doc.pipe(writeStream);
-
-        // Add background image
-        doc.image('/home/rushabh/Desktop/renuhealthcare/public/logo.png', 0, 0, { width: 612,  opacity: 0.1 }); // Adjust image path, width, and height
 
     doc.font("Helvetica");
 

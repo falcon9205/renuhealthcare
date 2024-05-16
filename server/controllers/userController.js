@@ -137,9 +137,9 @@ const userPasswordReset = async (req, res) => {
     }
 }
 
-const generateUserCertificate = (name, email, userId, post,post) => {
+const generateUserCertificate = (name, email, userId, post) => {
     // Call the function to generate the certificate
-    generateCertificate(name, email, userId, post,post);
+    generateCertificate(name, email, userId, post);
 };
 
 const download = async (req, res) => {
