@@ -2,7 +2,7 @@ import fs from 'fs';
 import PDFDocument from 'pdfkit';
 import Certificate from '../models/Certificate.js';
 
-const generateCertificate = async (name, email,userId,post) => {
+const generateCertificate = async (name, email,userId,department,post) => {
     return new Promise(async (resolve, reject) => {
         const doc = new PDFDocument();
         const buffers = [];
@@ -15,41 +15,51 @@ const generateCertificate = async (name, email,userId,post) => {
     // Pipe the PDF document to write stream to save locally
     doc.pipe(writeStream);
 
+    const backgroundImagePath = 'images/logo-image.png';
+
+    const backgroundImage = fs.readFileSync(backgroundImagePath);
+
+    // Define the upper margin
+    const upperMargin = 60; // Adjust as needed
+    
+    // Draw the background image with the upper margin
+    doc.image(backgroundImage, 0, upperMargin, { width: doc.page.width+2, height: doc.page.height - 210, opacity: 0.8 });
     doc.font("Helvetica");
 
     doc
-      .fontSize(18)
+      .fontSize(20)
       .fillColor("green")
       .font("Helvetica-Bold")
       .text("Renu Sharma Healthcare Education & Foundation", { align: "left" });
     doc.moveDown();
 
     doc
-      .fontSize(8)
-      .font("Helvetica")
+      .fontSize(12)
+      .font("Helvetica").fillColor("black")
       .text("Gurugram, Haryana", { align: "left" });
-    doc.fontSize(8).font("Helvetica").text("Sector - 14", { align: "left" });
+    doc.fontSize(12).font("Helvetica").fillColor("black")
+    .text("Sector - 14", { align: "left" });
     doc
-      .fontSize(8)
+      .fontSize(12).fillColor("black")
       .font("Helvetica")
       .text("Pincode: 122503", { align: "left" });
     doc
-      .fontSize(8)
+      .fontSize(12)
       .fillColor("black")
       .font("Helvetica")
-      .fontSize(10)
+      .fontSize(12)
       .moveDown();
 
     doc.text(`Date: ${new Date().toLocaleDateString()}`, { align: "left" });
     doc.moveDown();
-    doc.text(`Subject: Offer letter of ${post}`, { align: "left" });
+    doc.text(`Subject: Offer letter of ${department}`, { align: "left" });
     doc.moveDown();
 
     doc.text(`Dear ${name},`, { align: "left" });
     doc.moveDown();
 
     doc.text(
-      `We are thrilled to extend an offer of employment for the position of ${post} intern at Renu Sharma Healthcare Education & Foundation. We were impressed by your qualifications and experience, and we believe that you will make a valuable addition to our team.`,
+      `We are thrilled to extend an offer of employment for the position of ${department} intern at Renu Sharma Healthcare Education & Foundation. We were impressed by your qualifications and experience, and we believe that you will make a valuable addition to our team.`,
       { align: "left" }
     );
     doc.moveDown();
@@ -67,10 +77,10 @@ const generateCertificate = async (name, email,userId,post) => {
       .text("Neha.rshefoundation@gmail.com");
 
     doc
-      .fontSize(8)
+      .fontSize(12)
       .fillColor("black")
       .font("Helvetica")
-      .fontSize(10)
+      .fontSize(12)
       .moveDown();
 
     doc.text(
@@ -89,64 +99,16 @@ const generateCertificate = async (name, email,userId,post) => {
     doc.lineWidth(25);
     doc.strokeColor("#000080");
 
-    // position for the rectangle at the top right corner just above the border
-    const rectWidth = 100; //  width of the rectangle
-    const rectHeight = 100; //  height of the rectangle
-    const pageWidth = doc.page.width;
-    const pageHeight = doc.page.height;
-
-    //  position for the first rectangle at the top right corner just above the border
-    const rectX = pageWidth - rectWidth; //  right edge of the page
-    const rectY = pageHeight - 60 - rectHeight; // Just above the border
-
-    //  position for the second rectangle on the left side
-    const secondRectX = pageWidth - rectWidth - 100; // right edge of the page
-    const secondRectY = pageHeight - 60 - rectHeight; // Just above the border
-
+   
     // Draw the border line at the bottom of the page
     doc
-      .moveTo(0, pageHeight - 50)
-      .lineTo(pageWidth, pageHeight - 50)
+      .moveTo(0, doc.page.height - 50)
+      .lineTo(doc.page.width, doc.page.height - 50)
       .stroke();
 
-    const gradient = doc.linearGradient(
-      rectX,
-      rectY,
-      rectX + rectWidth,
-      rectY + rectHeight
-    );
-    gradient.stop(1, "#C21E56	");
-    gradient.stop(1, "#E37383");
-
-    //  position for the third rectangle on the right side
-    const thirdRectX = pageWidth - rectWidth - 200;
-    const thirdRectY = pageHeight - 60 - rectHeight;
-
-    //  third rectangle aligned with the right edge of the page
-
-    doc.rect(rectX, rectY, rectWidth, rectHeight).fill(gradient);
-    //second rectangle aligned with the right edge of the page
-    doc
-      .rect(secondRectX, secondRectY, rectWidth, rectHeight)
-      .fillColor("#C21E56")
-      .fill();
-
-    // gradient for the third rectangle
-    const thirdGradient = doc.linearGradient(
-      thirdRectX,
-      thirdRectY,
-      thirdRectX + rectWidth,
-      thirdRectY + rectHeight
-    );
-    thirdGradient.stop(1, "white"); // White color
-    thirdGradient.stop(1, "#C21E56"); // Dark pink color
-
-    //  third rectangle with the gradient and fill color
-    doc
-      .rect(thirdRectX, thirdRectY, rectWidth, rectHeight)
-      .fill(thirdGradient)
-      .fillColor("#3A9D23")
-      .fill();
+ 
+   
+   
 
     doc.end();
 
@@ -162,6 +124,9 @@ const generateCertificate = async (name, email,userId,post) => {
                 // Create a new certificate document in the database
                 const certificate = new Certificate({
                     userId,
+                    name,
+                    post,
+                    department,
                     content: `This is to certify that ${name} successfully completed the internship program.`,
                     pdfBuffer, // Store the PDF buffer
                 });

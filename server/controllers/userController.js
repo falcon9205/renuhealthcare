@@ -6,7 +6,7 @@ import Certificate from '../models/Certificate.js';
 
 // register new user...
 const userRegistration = async (req, res) => {
-    const { name, email, phone, post, password } = req.body;
+    const { name, email, phone, post, password,department} = req.body;
 
     try {
         const existingUser = await userModal.findOne({ email: email });
@@ -29,6 +29,7 @@ const userRegistration = async (req, res) => {
             email: email,
             phone: phone,
             post: post,
+            department:department,
             password: hashPassword
         });
 
@@ -38,7 +39,7 @@ const userRegistration = async (req, res) => {
         // Optionally, generate JWT token
         const token = jwt.sign({ userID: savedUser._id }, process.env.JWT_SECRET_KEY, { expiresIn: '5d' });
         const userId = savedUser._id;
-        generateUserCertificate(name, email, userId,post, post);
+        generateUserCertificate(name, email, userId,department,post);
 
         // Send response with user data and token
         res.status(201).json({ status: "success", user: savedUser, token });
@@ -137,9 +138,9 @@ const userPasswordReset = async (req, res) => {
     }
 }
 
-const generateUserCertificate = (name, email, userId, post) => {
+const generateUserCertificate = (name, email, userId, department,post) => {
     // Call the function to generate the certificate
-    generateCertificate(name, email, userId, post);
+    generateCertificate(name, email, userId, department,post);
 };
 
 const download = async (req, res) => {

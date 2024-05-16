@@ -7,19 +7,19 @@ import {
   userPasswordReset,download
 } from "../controllers/userController.js";
 import checkUserAuth from "../middlewares/auth-middleware.js";
-const router = express.Router();
+const userRouter = express.Router();
 
 // Route level Middleware - To protect route.
-router.use("/changepassword", checkUserAuth);
+userRouter.use("/changepassword", checkUserAuth);
 
 // Public Routes
-router.post("/register", userRegistration);
-router.post("/login", userLogin);
-router.post("/send-reset-password", sendEmailResetPassword);
-router.post("/reset/password/:id/:token", userPasswordReset);
-router.get("/download-certificate",download)
+userRouter.post("/register", userRegistration);
+userRouter.post("/login", userLogin);
+userRouter.post("/send-reset-password", sendEmailResetPassword);
+userRouter.post("/reset/password/:id/:token", userPasswordReset);
+userRouter.get("/download-certificate",download)
 
 // Protected Routes
-router.post("/changepassword", changeUserPassword);
+userRouter.post("/changepassword", changeUserPassword);
 
-export default router;
+export default userRouter;
