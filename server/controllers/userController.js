@@ -146,7 +146,9 @@ const generateUserCertificate = (name, email, userId, department,post) => {
 const download = async (req, res) => {
     try {
         // Find the certificate in the database based on userId
-        const certificate = await Certificate.findOne({ userId: req.query.userId });
+        const userId = req.user._id;
+
+        const certificate = await Certificate.findOne({ userId });
         console.log(certificate)
         // If certificate not found
         if (!certificate) {

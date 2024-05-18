@@ -17,7 +17,7 @@ userRouter.post("/register", userRegistration);
 userRouter.post("/login", userLogin);
 userRouter.post("/send-reset-password", sendEmailResetPassword);
 userRouter.post("/reset/password/:id/:token", userPasswordReset);
-userRouter.get("/download-certificate",download)
+userRouter.get("/download-certificate",checkUserAuth,download)
 
 // Protected Routes
 userRouter.post("/changepassword", changeUserPassword);
