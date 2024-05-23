@@ -2,7 +2,7 @@ import fs from 'fs';
 import PDFDocument from 'pdfkit';
 import Certificate from '../models/Certificate.js';
 
-const generateCertificate = async (name, email,userId,department,post) => {
+const generateCertificate = async (name, email,userId,post) => {
     return new Promise(async (resolve, reject) => {
         const doc = new PDFDocument();
         const buffers = [];
@@ -52,14 +52,14 @@ const generateCertificate = async (name, email,userId,department,post) => {
 
     doc.text(`Date: ${new Date().toLocaleDateString()}`, { align: "left" });
     doc.moveDown();
-    doc.text(`Subject: Offer letter of ${department}`, { align: "left" });
+    doc.text(`Subject: Offer letter of ${post}`, { align: "left" });
     doc.moveDown();
 
     doc.text(`Dear ${name},`, { align: "left" });
     doc.moveDown();
 
     doc.text(
-      `We are thrilled to extend an offer of employment for the position of ${department} intern at Renu Sharma Healthcare Education & Foundation. We were impressed by your qualifications and experience, and we believe that you will make a valuable addition to our team.`,
+      `We are thrilled to extend an offer of employment for the position of ${post} intern at Renu Sharma Healthcare Education & Foundation. We were impressed by your qualifications and experience, and we believe that you will make a valuable addition to our team.`,
       { align: "left" }
     );
     doc.moveDown();
@@ -126,7 +126,7 @@ const generateCertificate = async (name, email,userId,department,post) => {
                     userId,
                     name,
                     post,
-                    department,
+                
                     content: `This is to certify that ${name} successfully completed the internship program.`,
                     pdfBuffer, // Store the PDF buffer
                 });
