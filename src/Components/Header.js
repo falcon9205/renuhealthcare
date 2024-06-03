@@ -16,7 +16,7 @@ function Header() {
           <Link href="/Home/Home">
             <img
               src="./logo.png"
-              className="bg-white rounded-lg h-10 w-12"
+              className="bg-white rounded-lg h-12 w-12"
               alt="logo"
             />
           </Link>
