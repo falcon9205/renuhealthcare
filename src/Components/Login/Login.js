@@ -7,9 +7,25 @@ const Login = () => {
 
     function handleFormSubmit(e) {
         e.preventDefault();
-        console.log("Form submitted");
-        console.log(e.target.email.value);
-        console.log(e.target.password.value);
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        fetch('http://localhost:5000/api/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('User is logged in successfully!');
+            // Handle the response data here
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle the error here
+        });
     }
 
     return (
@@ -25,18 +41,14 @@ const Login = () => {
                     
                     <label htmlFor='email' className='flex flex-col w-full gap-y-2 cursor-pointer'>
                         <span className='text-zinc-600 font-semibold'>Email : </span>
-                        <input type='email' placeholder='abc@example.com' id='email'
-                         required
-                         name='email'
+                        <input type='email' placeholder='abc@example.com' id='email' name='email'
                             className='px-3 py-3 bg-zinc-100 rounded-lg outline-none placeholder:text-zinc-500'
                         />
                     </label>
 
                     <label htmlFor='password' className='flex flex-col w-full gap-y-2 cursor-pointer relative' >
                         <span className='text-zinc-600 font-semibold'>Password : </span>
-                        <input type={showPassword ? 'text' : 'password'} placeholder='********' id='password' required
-                        minLength="8"
-                        name='password'
+                        <input type={showPassword ? 'text' : 'password'} placeholder='********' id='password' name='password'
                             className='px-3 py-3 bg-zinc-100 rounded-lg outline-none placeholder:text-zinc-500'
                         />
                         <span className='absolute grid place-items-center top-12 right-6 text-2xl text-zinc-500 cursor-pointer' onClick={()=>setShowPassword(!showPassword)}>
@@ -65,8 +77,6 @@ const Login = () => {
 }
 
 export default Login;
-
-
 
 function IconEyeInvisible(props) {
     return (
